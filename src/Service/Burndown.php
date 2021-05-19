@@ -50,7 +50,7 @@ class Burndown
         $this->initialPoints = 0;
         array_map(function (array $issue) use (&$initialPoints) {
             $this->initialPoints += $issue['fields']['customfield_10028'] ?: 0;
-        }, $this->jiraClient->getInitialIssuesForSprint($resolvedProject->getId(), $resolvedSprint->getName(), $this->startDate));
+        }, $this->jiraClient->getInitialIssuesForSprint($resolvedProject->getId(), $resolvedSprint->getName(), $this->endDate));
 
         $idealPoints = [
             'type' => 'line',

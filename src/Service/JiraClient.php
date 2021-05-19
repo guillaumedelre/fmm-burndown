@@ -99,14 +99,14 @@ class JiraClient
         return $response->toArray()['sprints'];
     }
 
-    public function getInitialIssuesForSprint(string $projectId, string $sprintName, \DateTime $sprintStartDate): array
+    public function getInitialIssuesForSprint(string $projectId, string $sprintName, \DateTime $sprintEndDate): array
     {
         $response = $this->client->request(
             'POST',
             '/rest/api/latest/search',
             [
                 'json' => [
-                    'jql' => "sprint = \"$sprintName\" AND project = \"$projectId\" and created<\"{$sprintStartDate->format('Y-m-d H:i')}\" ORDER BY \"Story Points\" DESC, created DESC",
+                    'jql' => "sprint = \"$sprintName\" AND project = \"$projectId\" and created<\"{$sprintEndDate->format('Y-m-d H:i')}\" ORDER BY \"Story Points\" DESC, created DESC",
                     'maxResults' => 1000,
                 ]
             ]
