@@ -33,8 +33,8 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/{projectName}", name="burndown_current_sprint")
-     * @ParamConverter("projectName", class=JiraProject::class, isOptional=false)
+     * @Route("/{projectId}", name="burndown_current_sprint")
+     * @ParamConverter("projectId", class=JiraProject::class, isOptional=false)
      */
     public function burndownForCurrentSprint(JiraProject $resolvedProject): Response
     {
@@ -45,16 +45,16 @@ class ProjectController extends AbstractController
         return $this->redirectToRoute(
             'project_burndown_for_sprint',
             [
-                'projectName' => urlencode($resolvedProject->getName()),
-                'sprintName'  => urlencode($resolvedSprint->getName()),
+                'projectId' => $resolvedProject->getId(),
+                'sprintId'  => $resolvedSprint->getId(),
             ]
         );
     }
 
     /**
-     * @Route("/{projectName}/{sprintName}", name="burndown_for_sprint")
-     * @ParamConverter("projectName", class=JiraProject::class, isOptional=false)
-     * @ParamConverter("sprintName", class=JiraSprint::class, isOptional=false)
+     * @Route("/{projectId}/{sprintId}", name="burndown_for_sprint")
+     * @ParamConverter("projectId", class=JiraProject::class, isOptional=false)
+     * @ParamConverter("sprintId", class=JiraSprint::class, isOptional=false)
      */
     public function burndownForSprint(JiraProject $resolvedProject, JiraSprint $resolvedSprint): Response
     {
@@ -68,14 +68,14 @@ class ProjectController extends AbstractController
                 'projectsListUrl' => $this->router->generate(
                     'ajax_projects_list',
                     [
-                        'projectName' => urlencode($resolvedProject->getName()),
+                        'projectId' => $resolvedProject->getId(),
                     ]
                 ),
                 'sprintstListUrl' => $this->router->generate(
                     'ajax_sprints_list',
                     [
-                        'projectName' => urlencode($resolvedProject->getName()),
-                        'sprintName'  => urlencode($resolvedSprint->getName()),
+                        'projectId' => $resolvedProject->getId(),
+                        'sprintId'  => $resolvedSprint->getId(),
                     ]
                 ),
                 'project'         => $resolvedProject,

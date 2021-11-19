@@ -38,8 +38,8 @@ class BurndownExtension extends AbstractExtension
         return $this->router->generate(
             'project_burndown_for_sprint',
             [
-                'projectName' => urlencode($project->getName()),
-                'sprintName'  => urlencode($sprint->getName()),
+                'projectId' => $project->getId(),
+                'sprintId'  => $sprint->getId(),
             ]
         );
     }
@@ -59,8 +59,8 @@ class BurndownExtension extends AbstractExtension
             : $this->router->generate(
                 'project_burndown_for_sprint',
                 [
-                    'projectName' => urlencode($project->getName()),
-                    'sprintName'  => urlencode($currentSprint->getName()),
+                    'projectId' => $project->getId(),
+                    'sprintId'  => $currentSprint->getId(),
                 ]
             );
     }
