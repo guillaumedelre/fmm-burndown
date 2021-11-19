@@ -17,5 +17,6 @@
 
 /public/cache/jira_local/*
 !/public/cache/jira_local/.gitignore
-
+composer.lock
+symfony.lock
 .idea
