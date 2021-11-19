@@ -23,8 +23,8 @@ class AjaxController extends AbstractController
     }
 
     /**
-     * @Route("/{projectName}/projects", name="projects_list")
-     * @ParamConverter("projectName", class=JiraProject::class, isOptional=false)
+     * @Route("/{projectId}/projects", name="projects_list")
+     * @ParamConverter("projectId", class=JiraProject::class, isOptional=false)
      */
     public function projectsList(JiraProject $resolvedProject): Response
     {
@@ -38,9 +38,9 @@ class AjaxController extends AbstractController
     }
 
     /**
-     * @Route("/{projectName}/{sprintName}/sprints", name="sprints_list")
-     * @ParamConverter("projectName", class=JiraProject::class, isOptional=false)
-     * @ParamConverter("sprintName", class=JiraSprint::class, isOptional=false)
+     * @Route("/{projectId}/{sprintId}/sprints", name="sprints_list")
+     * @ParamConverter("projectId", class=JiraProject::class, isOptional=false)
+     * @ParamConverter("sprintId", class=JiraSprint::class, isOptional=false)
      */
     public function sprintstList(JiraProject $resolvedProject, JiraSprint $resolvedSprint): Response
     {

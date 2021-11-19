@@ -20,7 +20,7 @@ class ProjectParamConverter implements ParamConverterInterface
     public function apply(Request $request, ParamConverter $configuration)
     {
         $found = array_filter($this->cacheLoader->getProjectList(), function (JiraProject $project) use ($request, $configuration) {
-            return mb_strtolower($project->getName()) === mb_strtolower(urldecode($request->attributes->get($configuration->getName())));
+            return $project->getId() === $request->attributes->get($configuration->getName());
         });
 
         $resolvedProject = current($found);
@@ -36,7 +36,7 @@ class ProjectParamConverter implements ParamConverterInterface
     {
         return
             JiraProject::class === $configuration->getClass()
-            && 'projectName' === $configuration->getName();
+            && 'projectId' === $configuration->getName();
     }
 
 }

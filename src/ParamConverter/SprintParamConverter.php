@@ -26,15 +26,14 @@ class SprintParamConverter implements ParamConverterInterface
         if (empty($request->attributes->get('resolvedProject'))) {
             throw new NotFoundHttpException();
         }
-
         $found = array_filter(
             $this->cacheLoader->getSprintList($request->attributes->get('resolvedProject')->getId()),
             function (JiraSprint $sprint) use ($request, $configuration) {
-                return mb_strtolower($sprint->getName()) === mb_strtolower(urldecode($request->attributes->get($configuration->getName())));
+                return $sprint->getId() == $request->attributes->get($configuration->getName());
             }
         );
         $resolvedSprint = current($found);
-        if (empty($resolvedSprint) || empty($resolvedSprint->getName())) {
+        if (empty($resolvedSprint) || empty($resolvedSprint->getId())) {
             return false;
         }
 
@@ -46,7 +45,7 @@ class SprintParamConverter implements ParamConverterInterface
     public function supports(ParamConverter $configuration)
     {
         return JiraSprint::class === $configuration->getClass()
-            && 'sprintName' === $configuration->getName()
+            && 'sprintId' === $configuration->getName()
             && !empty($this->requestStack->getCurrentRequest()->attributes->get('resolvedProject'));
     }
 
