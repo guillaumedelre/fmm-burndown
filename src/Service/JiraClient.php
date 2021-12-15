@@ -66,7 +66,7 @@ class JiraClient
         }
 
         $foundBoard = array_filter($response->toArray()['values'], function (array $board) use ($projectId) {
-            return (int) $projectId === $board['location']['projectId'];
+            return (int) $projectId === (empty($board['location']['projectId']) ? null : $board['location']['projectId']);
         });
         if (empty($foundBoard)) {
             return [];
