@@ -10,3 +10,8 @@ h1 {
 .minimize-goal {
     height: 75px;
 }
+
+#sprintDropdown {
+    max-height: 400px;
+    overflow-y: scroll;
+}
